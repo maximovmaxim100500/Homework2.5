@@ -1,4 +1,8 @@
 package pro.sky.homeworke25;
 
-public class EmployeeStorageIsFullException extends Exception{
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public class EmployeeStorageIsFullException extends RuntimeException{
 }

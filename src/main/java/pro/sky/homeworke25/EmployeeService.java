@@ -8,10 +8,9 @@ import java.util.List;
 @Service
 public class EmployeeService {
     int maxQuantityEmployees = 10;
-    Employee[] employees = new Employee[maxQuantityEmployees];
     List<Employee> list = new ArrayList<>();
 
-    public String addEmployee(String firstName, String lastName) throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException{
+    public String addEmployee(String firstName, String lastName) throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException {
         Employee employee = new Employee(firstName, lastName);
         for (int i = 0; i < list.size(); i++) {
             if (employee.equals(list.get(i))) {
@@ -19,13 +18,12 @@ public class EmployeeService {
             }
         }
         if (list.size() < maxQuantityEmployees) {
-            list.add(new Employee(firstName, lastName));
+            list.add(employee);
             return employee.toString();
         } else throw new EmployeeStorageIsFullException();
-        //return "Превышено максимальное количество сотрудников.";
     }
 
-    public String removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException{
+    public String removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
         String g = "";
         for (int i = 0; i < list.size(); i++) {
@@ -40,7 +38,7 @@ public class EmployeeService {
         return g;
     }
 
-    public String findEmployee(String firstName, String lastName) throws EmployeeNotFoundException{
+    public String findEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
         String g = "";
         for (int i = 0; i < list.size(); i++) {

@@ -1,10 +1,12 @@
 package pro.sky.homeworke25;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/employee")
 public class EmployeeController {
     private final EmployeeService employeeService;
 
@@ -13,38 +15,38 @@ public class EmployeeController {
     }
 
     @GetMapping
-    public String addEmployee() {
-        return "hello";
+    public String employeeBook() {
+        return "employeeBook";
     }
 
     @GetMapping(path = "/add")
     public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
+       /* try {*/
             return employeeService.addEmployee(firstName, lastName);
-        } catch (EmployeeStorageIsFullException e) {
+      /*  } catch (EmployeeStorageIsFullException e) {
             throw new RuntimeException("ArrayIsFull");
         } catch (EmployeeAlreadyAddedException e) {
             throw new RuntimeException("EmployeeAlreadyAdded");
-        }
+        }*/
 
     }
 
     @GetMapping(path = "/remove")
     public String removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
+       // try {
             return employeeService.removeEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
+        /*} catch (EmployeeNotFoundException e) {
             throw new RuntimeException("EmployeeNotFound");
-        }
+        }*/
     }
 
     @GetMapping(path = "/find")
     public String findEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-        try {
+       // try {
             return employeeService.findEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e) {
+        /*} catch (EmployeeNotFoundException e) {
             throw new RuntimeException("EmployeeNotFound");
-        }
+        }*/
     }
 
     @GetMapping(path = "/printAll")
