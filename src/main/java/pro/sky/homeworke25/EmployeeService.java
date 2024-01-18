@@ -2,57 +2,49 @@ package pro.sky.homeworke25;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmployeeService {
     int maxQuantityEmployees = 10;
-    List<Employee> list = new ArrayList<>();
+    Map<Employee, Integer> employeeBook = new HashMap<>();
 
     public String addEmployee(String firstName, String lastName) throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException {
         Employee employee = new Employee(firstName, lastName);
-        for (int i = 0; i < list.size(); i++) {
-            if (employee.equals(list.get(i))) {
-                throw new EmployeeAlreadyAddedException();
-            }
+        if (employeeBook.containsKey(employee)) {
+            throw new EmployeeAlreadyAddedException();
         }
-        if (list.size() < maxQuantityEmployees) {
-            list.add(employee);
+        if (employeeBook.size() < maxQuantityEmployees) {
+            employeeBook.put(employee, 1);
             return employee.toString();
         } else throw new EmployeeStorageIsFullException();
     }
 
     public String removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
-        String g = "";
-        for (int i = 0; i < list.size(); i++) {
-            if (employee.equals(list.get(i))) {
-                g = employee.toString();
-                list.remove(i);
-                return g;
-            } else if (i == list.size() - 1 && (!employee.equals(list.get(i)))) {
+        for (int i = 0; i < employeeBook.size(); i++) {
+            if (employeeBook.containsKey(employee)) {
+                employeeBook.remove(employee);
+                return employee.toString();
+            } else if (!employeeBook.containsKey(employee)) {
                 throw new EmployeeNotFoundException();
             }
         }
-        return g;
+        return employee.toString();
     }
 
     public String findEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
-        String g = "";
-        for (int i = 0; i < list.size(); i++) {
-            if (employee.equals(list.get(i))) {
-                g = employee.toString();
-                return g;
-            } else if (i == list.size() - 1 && (!employee.equals(list.get(i)))) {
+            if (employeeBook.containsKey(employee)) {
+                return employee.toString();
+            } else if (!employeeBook.containsKey(employee)) {
                 throw new EmployeeNotFoundException();
             }
-        }
-        return g;
+        return employee.toString();
     }
 
     public String printEmployee() {
-        return list.toString();
+        return employeeBook.toString();
     }
 }
