@@ -36,11 +36,11 @@ public class EmployeeService {
 
     public String findEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
-            if (employeeBook.containsKey(employee)) {
-                return employee.toString();
-            } else if (!employeeBook.containsKey(employee)) {
-                throw new EmployeeNotFoundException();
-            }
+        if (employeeBook.containsKey(employee)) {
+            return employee.toString();
+        } else if (!employeeBook.containsKey(employee)) {
+            throw new EmployeeNotFoundException();
+        }
         return employee.toString();
     }
 
