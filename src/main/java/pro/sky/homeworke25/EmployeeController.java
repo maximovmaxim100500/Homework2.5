@@ -19,34 +19,29 @@ public class EmployeeController {
         return "employeeBook";
     }
 
-    @GetMapping(path = "/add")
-    public String addEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-       /* try {*/
-            return employeeService.addEmployee(firstName, lastName);
-      /*  } catch (EmployeeStorageIsFullException e) {
-            throw new RuntimeException("ArrayIsFull");
-        } catch (EmployeeAlreadyAddedException e) {
-            throw new RuntimeException("EmployeeAlreadyAdded");
-        }*/
 
+    @GetMapping(path = "/add")
+    public String addEmployee(@RequestParam("firstName") String firstName,
+                              @RequestParam("lastName") String lastName,
+                              @RequestParam("department") String department,
+                              @RequestParam("salary") int salary) {
+        return employeeService.addEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping(path = "/remove")
-    public String removeEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-       // try {
-            return employeeService.removeEmployee(firstName, lastName);
-        /*} catch (EmployeeNotFoundException e) {
-            throw new RuntimeException("EmployeeNotFound");
-        }*/
+    public String removeEmployee(@RequestParam("firstName") String firstName,
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("department") String department,
+                                 @RequestParam("salary") int salary) {
+        return employeeService.removeEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping(path = "/find")
-    public String findEmployee(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
-       // try {
-            return employeeService.findEmployee(firstName, lastName);
-        /*} catch (EmployeeNotFoundException e) {
-            throw new RuntimeException("EmployeeNotFound");
-        }*/
+    public String findEmployee(@RequestParam("firstName") String firstName,
+                               @RequestParam("lastName") String lastName,
+                               @RequestParam("department") String department,
+                               @RequestParam("salary") int salary) {
+        return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping(path = "/printAll")
