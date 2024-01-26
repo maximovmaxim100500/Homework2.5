@@ -25,11 +25,11 @@ public class DepartmentController {
     }
 
     @GetMapping(path = "/all")
-    public String printEmployeeDep(@RequestParam(defaultValue = "department") String department) {
+    public String printEmployeeDep(@RequestParam(value = "department", required = false) String department) {
         if ( department.equals("department")) {
-            return departmentService.groupByDepartment().toString();
-        } else {
             return departmentService.printEmployeeDep(department);
+        } else {
+            return departmentService.groupByDepartment().toString();
         }
     }
 
