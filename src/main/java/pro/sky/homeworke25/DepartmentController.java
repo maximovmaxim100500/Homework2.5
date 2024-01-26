@@ -24,17 +24,14 @@ public class DepartmentController {
         return departmentService.getMinSalaryOfDepartment(department);
     }
 
-    @GetMapping(path = "/all")
-    public String printEmployeeDep(@RequestParam(value = "department", required = false) String department) {
-        if ( department.equals("department")) {
-            return departmentService.printEmployeeDep(department);
-        } else {
-            return departmentService.groupByDepartment().toString();
-        }
+    @GetMapping(value = "all", params = "departmentId")
+    public String printEmployeeDep(@RequestParam String department) {
+        return departmentService.printEmployeeDep(department);
     }
 
-    /*@GetMapping(path = "/all")
+    @GetMapping("/all")
     public String groupByDepartment() {
         return departmentService.groupByDepartment().toString();
-    }*/
+    }
 }
+
