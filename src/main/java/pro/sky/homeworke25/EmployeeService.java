@@ -1,5 +1,7 @@
 package pro.sky.homeworke25;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -16,12 +18,16 @@ public class EmployeeService {
         return employeeBook;
     }
 
-    public String addEmployee(String firstName, String lastName, String department, int salary) throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException {
+    public String addEmployee(String firstName, String lastName, String department, int salary)
+            throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException, BadRequestException {
+        dataChecking(firstName, lastName);
+        firstName = StringUtils.capitalize(firstName);
+        lastName = StringUtils.capitalize(lastName);
         Employee employee = new Employee(firstName, lastName, department, salary);
-        if (employeeBook.containsKey(employee)) {
+        String key = makeKey(firstName, lastName);
+        if (employeeBook.containsKey(key)) {
             throw new EmployeeAlreadyAddedException();
         }
-        String key = makeKey(firstName, lastName);
         if (employeeBook.size() < maxQuantityEmployees) {
             employeeBook.put(key, employee);
             return employee.toString();
@@ -62,6 +68,14 @@ public class EmployeeService {
     }
 
     private static String makeKey(String firstName, String lastName) {
+        firstName = StringUtils.capitalize(firstName);
+        lastName = StringUtils.capitalize(lastName);
         return (firstName + " " + lastName).toLowerCase();
+    }
+
+    private static void dataChecking(String firstName, String lastName) throws BadRequestException {
+        if (!(StringUtils.isAlpha(firstName) && StringUtils.isAlpha(lastName))) {
+            throw new BadRequestException();
+        }
     }
 }

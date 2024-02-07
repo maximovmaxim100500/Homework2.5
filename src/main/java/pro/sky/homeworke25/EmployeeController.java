@@ -1,5 +1,6 @@
 package pro.sky.homeworke25;
 
+import org.apache.coyote.BadRequestException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class EmployeeController {
     public String addEmployee(@RequestParam("firstName") String firstName,
                               @RequestParam("lastName") String lastName,
                               @RequestParam("department") String department,
-                              @RequestParam("salary") int salary) {
+                              @RequestParam("salary") int salary) throws BadRequestException {
         return employeeService.addEmployee(firstName, lastName, department, salary);
     }
 
