@@ -21,8 +21,8 @@ public class EmployeeService {
     public String addEmployee(String firstName, String lastName, String department, int salary)
             throws EmployeeStorageIsFullException, EmployeeAlreadyAddedException, BadRequestException {
         dataChecking(firstName, lastName);
-        firstName = StringUtils.capitalize(firstName);
-        lastName = StringUtils.capitalize(lastName);
+        firstName = StringUtils.capitalize(firstName.toLowerCase());
+        lastName = StringUtils.capitalize(lastName.toLowerCase());
         Employee employee = new Employee(firstName, lastName, department, salary);
         String key = makeKey(firstName, lastName);
         if (employeeBook.containsKey(key)) {
@@ -34,7 +34,8 @@ public class EmployeeService {
         } else throw new EmployeeStorageIsFullException();
     }
 
-    public String removeEmployee(String firstName, String lastName, String department, int salary) throws EmployeeNotFoundException {
+    public String removeEmployee(String firstName, String lastName, String department, int salary) throws EmployeeNotFoundException, BadRequestException {
+        dataChecking(firstName, lastName);
         Employee employee = new Employee(firstName, lastName, department, salary);
         String key = makeKey(firstName, lastName);
         for (int i = 0; i < employeeBook.size(); i++) {
@@ -48,7 +49,8 @@ public class EmployeeService {
         return employee.toString();
     }
 
-    public String findEmployee(String firstName, String lastName, String department, int salary) throws EmployeeNotFoundException {
+    public String findEmployee(String firstName, String lastName, String department, int salary) throws EmployeeNotFoundException, BadRequestException {
+        dataChecking(firstName, lastName);
         Employee employee = new Employee(firstName, lastName, department, salary);
         String key = makeKey(firstName, lastName);
         if (employeeBook.containsKey(key)) {

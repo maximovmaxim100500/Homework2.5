@@ -33,7 +33,7 @@ public class EmployeeController {
     public String removeEmployee(@RequestParam("firstName") String firstName,
                                  @RequestParam("lastName") String lastName,
                                  @RequestParam("department") String department,
-                                 @RequestParam("salary") int salary) {
+                                 @RequestParam("salary") int salary) throws BadRequestException {
         return employeeService.removeEmployee(firstName, lastName, department, salary);
     }
 
@@ -41,7 +41,7 @@ public class EmployeeController {
     public String findEmployee(@RequestParam("firstName") String firstName,
                                @RequestParam("lastName") String lastName,
                                @RequestParam("department") String department,
-                               @RequestParam("salary") int salary) {
+                               @RequestParam("salary") int salary) throws BadRequestException {
         return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
