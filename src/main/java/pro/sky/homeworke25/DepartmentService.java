@@ -61,12 +61,15 @@ public class DepartmentService {
     }
 
     public int getSumSalaryOfDepartment(String id) {
-        int sumSalaryOfDep = 0;
+        return employeeService.getAll().stream()
+                .filter(employee -> employee.getDepartment().equals(id))
+                .mapToInt(Employee::getSalary)
+                .sum();
+        /*int sumSalaryOfDep = 0;
         for (Employee employee :employeeService.getEmployeeBook().values()){
-            int SalaryOfDep = employee.getSalary();
-            sumSalaryOfDep += SalaryOfDep;
+            sumSalaryOfDep += employee.getSalary();
         }
-        return sumSalaryOfDep;
+        return sumSalaryOfDep;*/
     }
 
 }
