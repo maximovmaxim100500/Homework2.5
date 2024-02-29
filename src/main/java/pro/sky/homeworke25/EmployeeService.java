@@ -12,7 +12,7 @@ import java.util.Map;
 public class EmployeeService {
     int maxQuantityEmployees = 10;
 
-    private final Map<String, Employee> employeeBook = new HashMap<>();
+    private final Map<String, Employee> employeeBook = new HashMap<String, Employee>();
 
     public Map<String, Employee> getEmployeeBook() {
         return employeeBook;
@@ -69,7 +69,7 @@ public class EmployeeService {
         return employeeBook.toString();
     }
 
-    private static String makeKey(String firstName, String lastName) {
+    public static String makeKey(String firstName, String lastName) {
         firstName = StringUtils.capitalize(firstName);
         lastName = StringUtils.capitalize(lastName);
         return (firstName + " " + lastName).toLowerCase();

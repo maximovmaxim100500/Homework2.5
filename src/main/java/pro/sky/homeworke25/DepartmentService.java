@@ -14,12 +14,14 @@ public class DepartmentService {
     public DepartmentService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-    public String printEmployeeDep(String department) {                          //Находим сотрудников отдела
+
+    public String printEmployeeDep(String id) {                          //Находим сотрудников отдела
         return employeeService.getEmployeeBook().values().stream()
-                .filter(employee -> employee.getDepartment().equals(department))
+                .filter(employee -> employee.getDepartment().equals(id))
                 .collect(Collectors.toList()).toString();
     }
-    public Employee getMaxSalaryOfDepartment(String department) {           //Находим максимальную зарплату в отделе
+
+    public Employee getMaxSalaryOfDepartment(String id) {           //Находим максимальную зарплату в отделе
     /*    int maxSalary = -1;
         List<Employee> employees = new ArrayList<>();
         for (Employee employee : employeeBook.values()) {
@@ -41,13 +43,14 @@ public class DepartmentService {
         }
         return maxEmployeeSalary;*/
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment().equals(department))
+                .filter(employee -> employee.getDepartment().equals(id))
                 .max(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
     }
-    public Employee getMinSalaryOfDepartment(String department) {           //Находим минимальную зарплату в отделе
+
+    public Employee getMinSalaryOfDepartment(String id) {           //Находим минимальную зарплату в отделе
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment().equals(department))
+                .filter(employee -> employee.getDepartment().equals(id))
                 .min(Comparator.comparingInt(Employee::getSalary))
                 .orElse(null);
     }
@@ -55,6 +58,15 @@ public class DepartmentService {
     public Map<String, List<Employee>> groupByDepartment() {                //Находим всех сотрудников по отделам
         return employeeService.getAll().stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
+
+    public int getSumSalaryOfDepartment(String id) {
+        int sumSalaryOfDep = 0;
+        for (Employee employee :employeeService.getEmployeeBook().values()){
+            int SalaryOfDep = employee.getSalary();
+            sumSalaryOfDep += SalaryOfDep;
+        }
+        return sumSalaryOfDep;
     }
 
 }
