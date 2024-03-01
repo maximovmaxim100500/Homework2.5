@@ -35,7 +35,7 @@ class DepartmentServiceTest {
                 "2", employee2,
                 "3", employee3
         ));
-        String expected = "[" + employee3.toString() + ", " + employee1.toString() + "]";
+        String expected = "[" + employee1.toString() + ", " + employee3.toString() + "]";
         String actual = departmentService.printEmployeeDep("1");
         assertEquals(expected, actual);
 

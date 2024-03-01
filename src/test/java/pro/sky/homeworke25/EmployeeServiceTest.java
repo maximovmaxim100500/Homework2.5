@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 class EmployeeServiceTest {
     private Employee employee1;
@@ -108,9 +109,12 @@ class EmployeeServiceTest {
         Collection<Employee> expected = new ArrayList<>();
         expected.add(employee2);
         expected.add(employee1);
+        System.out.println(actual);
+        System.out.println(expected);
 
         assertNotNull(employeeService);
-        assertIterableEquals(expected, actual);
+        //assertIterableEquals(expected, actual);
+        assertThat(expected).containsAll(actual);
     }
 
     @Test

@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.comparingInt;
+
 @Service
 public class DepartmentService {
     private final EmployeeService employeeService;
@@ -15,9 +18,17 @@ public class DepartmentService {
         this.employeeService = employeeService;
     }
 
-    public String printEmployeeDep(String id) {                          //Находим сотрудников отдела
+    private void checkDepartment(String dep) {
+        List<String> departments = List.of("1", "2", "3");
+        if (!departments.contains(dep)) {
+            throw new RuntimeException();
+        }
+    }
+    public String printEmployeeDep(String id) {//Находим сотрудников отдела
+        checkDepartment(id);
         return employeeService.getEmployeeBook().values().stream()
                 .filter(employee -> employee.getDepartment().equals(id))
+                .sorted(comparing(Employee ::getFirstName))
                 .collect(Collectors.toList()).toString();
     }
 
@@ -44,14 +55,14 @@ public class DepartmentService {
         return maxEmployeeSalary;*/
         return employeeService.getAll().stream()
                 .filter(employee -> employee.getDepartment().equals(id))
-                .max(Comparator.comparingInt(Employee::getSalary))
+                .max(comparingInt(Employee::getSalary))
                 .orElse(null);
     }
 
     public Employee getMinSalaryOfDepartment(String id) {           //Находим минимальную зарплату в отделе
         return employeeService.getAll().stream()
                 .filter(employee -> employee.getDepartment().equals(id))
-                .min(Comparator.comparingInt(Employee::getSalary))
+                .min(comparingInt(Employee::getSalary))
                 .orElse(null);
     }
 
